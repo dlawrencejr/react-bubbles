@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios'
 import axiosWithAuth, { setToken } from "../utils/axiosWithAuth";
 
 const Login = (props) => {
@@ -19,12 +20,11 @@ const Login = (props) => {
   
   const handleSubmit = e => {
     e.preventDefault();
-    axiosWithAuth()
-    .post('/login',creds)
+    axios
+    .post('http://localhost:5000/api/login',creds)
     .then(res =>{
       setToken(res.data.payload)
-      setCreds(initialCreds)
-      props.history.push('/')
+      props.history.push('/bubbles')
     })
     .catch(err => {
       console.log(err)
